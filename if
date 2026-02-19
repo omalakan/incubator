@@ -1,5 +1,5 @@
 loop:
-    t2 <- t2 + 1
+    t2 = t2 + 1
     t2 < 10 ? loop     // BLT t2, 10, loop
 
 
