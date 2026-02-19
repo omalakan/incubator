@@ -1,1 +1,18 @@
+loop:
+    t2 <- t2 + 1
+    t2 < 10 ? loop     // BLT t2, 10, loop
 
+
+
+? t2 == t3
+    [t0] = t1
+:
+    [t0] = 0
+
+BNE t2, t3, label_else      ; Якщо НЕ рівні, стрибаємо на else
+    SB t1, 0(t0)            ; Тіло IF
+    J label_end             ; Стрибок через else
+label_else:
+    LI temp, 0
+    SB temp, 0(t0)          ; Тіло ELSE
+label_end:
