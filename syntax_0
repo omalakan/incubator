@@ -1,19 +1,20 @@
 ; MULTIX System Assembly
 ; Test Shadow Stack & Loops
 
-% MEMORY_SIZE 8kb      ; Init Memory Size And Return Stack (Shadow Stack)
+; % MEMORY_SIZE 8kb            ; Init Memory Size And Return Stack (Shadow Stack)
+% MEMORY_SIZE SYS_MEMORY_SIZE; Init Memory Size And Return Stack (Shadow Stack)
 
-: MEMORY + 0x8000    
-    print_hello @      ; Call
+: MEMORY + 0x8000            ; Адреса точки входу, MEMORY адреса виділеної пам'яті
+    print_hello @            ; Call
     
-    _                  ; Halt
+    _                        ; Halt
 
 print_hello:
     x1 = 0
     x2 = 3
     
-    & x1 < x2          ; While x1 < 3
+    & x1 < x2                ; While x1 < 3
         x5 = 'A'
         x1 = x1 + 1
         
-    =                  ; Return
+    =                        ; Return
