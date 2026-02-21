@@ -1,8 +1,7 @@
 ; MULTIX System Assembly
 ; Test Shadow Stack & Loops
 
-; % MEMORY_SIZE 8kb            ; Init Memory Size And Return Stack (Shadow Stack)
-% MEMORY_SIZE SYS_MEMORY_SIZE; Init Memory Size And Return Stack (Shadow Stack)
+% MEMORY_SIZE 8kb            ; Init Memory Size And Return Stack (Shadow Stack)
 
 : MEMORY + 0x8000            ; Адреса точки входу, MEMORY адреса виділеної пам'яті. Якщо потрібно, можливо краще задати адресу компілятором, для контейнерів та коду Asm  
     print_hello @            ; Call
