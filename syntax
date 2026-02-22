@@ -9,7 +9,7 @@
     
     _                        ; Halt
 
-print_hello:
+: print_hello
     x1 = 0
     x2 = 3
     
