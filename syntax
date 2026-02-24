@@ -1,7 +1,7 @@
 ; MULTIX System Assembly
 ; Демо: Мінімалізм і ручні стеки
 
-% RAM 0x8000
+RAM 0x8000
 
 : RAM
     x31 RAM + 0x1000        ; Ініціалізація стека
@@ -14,7 +14,7 @@
     x11 [x31++]             ; Pop результату
     _                       ; Halt
 
-: process
+process:
     x5 [x31++]              ; Pop аргумента в x5
     x5 x5 + 1               ; Робота
     
