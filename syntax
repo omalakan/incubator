@@ -14,7 +14,7 @@
     x11 @ x31++             ; Pop результату
     _                       ; Halt
 
-process:
+: process
     x5 @ x31++              ; Pop аргумента в x5
     x5 x5 + 1               ; Робота
     
