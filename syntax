@@ -1,5 +1,4 @@
-; MULTIX System Assembly
-; Демо: Мінімалізм і ручні стеки
+; MULTIX System Assembly v0.0.9
 
 RAM_START 0x8000
 
