@@ -1,5 +1,5 @@
-# MULTIX: Industrial and Applied Real-Time Computational Space
+# MULTIX: Industrial and Applied Computational Space
 Англійською (звучить професійно та інженерно)
-# MULTIX: Розрахунковий простір реального часу промислового та прикладного призначення
+# MULTIX: Розрахунковий простір промислового та прикладного призначення
 Українською (орфографічно та стилістично вивірено)
 # incubator
