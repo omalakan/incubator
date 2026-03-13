@@ -1,13 +1,13 @@
 ; Ініціалізація пам'яті (тепер це безпечна підпрограма)
 :
-    = x1 [config.FREE_RAM_START]
-    = x2 [config.RAM_MAX]
-    = x3 [config.PAGE_SIZE]
+    = x1 config.FREE_RAM_START
+    = x2 config.RAM_MAX
+    = x3 config.PAGE_SIZE
 
     ; Захист від дурня: якщо пам'яті немає, достроково виходимо (=)
     ? x1 >= x2 ^
 
-    = x5 [config.FREE_LIST_HEAD]
+    = x5 config.FREE_LIST_HEAD
     = [x5] x1
 
 : build_list
