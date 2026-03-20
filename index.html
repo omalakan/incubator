@@ -1,78 +1,149 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" data-theme="dark">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULTIX Code</title>
     <style>
-        body { background-color: #ffffff; color: #e0e0e0; font-family: sans-serif; display: flex; flex-wrap: wrap; gap: 40px; padding: 40px; }
-        .logo-container { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 150px; text-align: center; }
-        svg { width: 100px; height: 100px; }
+        /* ================= ДИЗАЙН СИСТЕМА MULTIX ================= */
+        :root[data-theme="dark"] {
+            --bg-base: #0A0A0B;      /* Глибокий термінальний фон */
+            --bg-surface: #141415;   /* Фон панелей */
+            --border: #2A2A2D;       /* Строгі межі */
+            --text-main: #E2E2E2;
+            --text-dim: #7A7A7F;
+            --color-amber: #FFB000;  /* MSA Ромб */
+            --color-green: #00E559;  /* MA Квадрат */
+            --bg-active: rgba(0, 229, 89, 0.1);
+        }
+
+        :root[data-theme="light"] {
+            --bg-base: #F4F4F0;      /* Креслярський папір */
+            --bg-surface: #EAEAEA;
+            --border: #CCCCCC;
+            --text-main: #1D1D1F;
+            --text-dim: #666666;
+            --color-amber: #D95A00;
+            --color-green: #007A66;
+            --bg-active: rgba(0, 122, 102, 0.1);
+        }
+
+        /* Скидання та Шрифти */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: ui-monospace, 'Cascadia Code', 'Fira Code', 'Roboto Mono', monospace;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Верхня навігація */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            height: 44px; padding: 0 16px; border-bottom: 1px solid var(--border);
+            background-color: var(--bg-surface);
+        }
+
+        /* ЛОГОТИП MULTIX */
+        .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 14px; letter-spacing: 1px; }
+        .logo-svg { width: 22px; height: 22px; }
+        .logo-rhombus { fill: none; stroke: var(--color-amber); stroke-width: 6; stroke-linejoin: bevel; }
+        .logo-square { fill: none; stroke: var(--color-green); stroke-width: 6; stroke-linejoin: bevel; }
+
+        .actions { display: flex; gap: 16px; align-items: center; }
+        .btn {
+            background: transparent; border: 1px solid transparent; color: var(--text-dim);
+            font-family: inherit; font-size: 12px; cursor: pointer; padding: 4px 8px; transition: 0.1s;
+        }
+        .btn:hover { color: var(--text-main); border-color: var(--border); }
+        .btn.outline-green { border-color: var(--color-green); color: var(--color-green); }
+        .btn.outline-green:hover { background: var(--bg-active); }
+
+        /* Робочий простір */
+        main { display: flex; flex: 1; height: calc(100vh - 44px); }
+        
+        /* Сайдбар */
+        aside { width: 260px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .panel-header { font-size: 11px; color: var(--text-dim); padding: 12px 16px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+        .file-tree { list-style: none; padding: 8px 0; overflow-y: auto; flex: 1; }
+        .file-item { padding: 6px 16px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
+        .file-item:hover { color: var(--text-main); }
+        .file-item.active { background: var(--bg-active); color: var(--color-green); border-left: 2px solid var(--color-green); padding-left: 14px; }
+
+        /* Редактор */
+        .editor-container { flex: 1; display: flex; flex-direction: column; }
+        .editor-tabs { display: flex; border-bottom: 1px solid var(--border); background-color: var(--bg-surface); }
+        .tab { padding: 8px 24px; font-size: 13px; border-right: 1px solid var(--border); cursor: pointer; color: var(--text-dim); }
+        .tab.active { background-color: var(--bg-base); color: var(--text-main); border-top: 2px solid var(--color-amber); }
+        
+        /* Текстове поле (Імітація підсвітки синтаксису) */
+        textarea.editor-textarea {
+            flex: 1; background: transparent; border: none; outline: none; resize: none;
+            padding: 24px; color: var(--text-main); font-family: inherit; font-size: 14px; line-height: 1.6;
+        }
     </style>
 </head>
 <body>
-    
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="none" stroke="#eab308" stroke-width="4"/>
-            <rect x="29" y="29" width="42" height="42" fill="none" stroke="#16a34a" stroke-width="4"/>
-        </svg>
-        <span>1. Дотичний (Контур)</span>
-    </div>
 
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="#eab308"/>
-            <rect x="29" y="29" width="42" height="42" fill="#16a34a"/>
-        </svg>
-        <span>2. Дотичний (Закрашений)</span>
-    </div>
+    <header>
+        <div class="brand">
+            <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="18" y="18" width="64" height="64" transform="rotate(45 50 50)" class="logo-rhombus"/>
+                <rect x="36" y="36" width="28" height="28" class="logo-square"/>
+            </svg>
+            <span>MULTIX</span>
+        </div>
+        <div class="actions">
+            <button class="btn" id="theme-btn">Theme: Dark</button>
+            <button class="btn outline-green">Sync: github://multixdev/os</button>
+        </div>
+    </header>
 
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="none" stroke="#eab308" stroke-width="4"/>
-            <rect x="34" y="34" width="32" height="32" fill="none" stroke="#16a34a" stroke-width="4"/>
-        </svg>
-        <span>3. З проміжком (Контур)</span>
-    </div>
+    <main>
+        <aside>
+            <div class="panel-header">Operation Space</div>
+            <ul class="file-tree">
+                <li class="file-item"># os_jupiter (bos)</li>
+                <li class="file-item">% pm_dma</li>
+                <li class="file-item active">system.dma.init.iommu</li>
+                <li class="file-item">system.dma.alloc</li>
+            </ul>
+        </aside>
+        
+        <div class="editor-container">
+            <div class="editor-tabs">
+                <div class="tab active">system.dma.init.iommu</div>
+            </div>
+            <textarea class="editor-textarea" spellcheck="false">
+; MULTIX System Assembly
+; Ціль: system.dma:iommu
 
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="#eab308"/>
-            <rect x="34" y="34" width="32" height="32" fill="#16a34a"/>
-        </svg>
-        <span>4. З проміжком (Закрашений)</span>
-    </div>
-    
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <rect x="20" y="20" width="60" height="60" rx="8" transform="rotate(45 50 50)" fill="none" stroke="#eab308" stroke-width="4"/>
-            <rect x="34" y="34" width="32" height="32" rx="4" fill="none" stroke="#16a34a" stroke-width="4"/>
-        </svg>
-        <span>1. Заокруглені (Контур)</span>
-    </div>
-    
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <rect x="20" y="20" width="60" height="60" rx="8" transform="rotate(45 50 50)" fill="#eab308"/>
-            <rect x="34" y="34" width="32" height="32" rx="4" fill="#16a34a"/>
-        </svg>
-        <span>2. Заокруглені (Закрашений)</span>
-    </div>
-<!-- #121212
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <path d="M 50 5 Q 85 15 95 50 Q 85 85 50 95 Q 15 85 5 50 Q 15 15 50 5 Z" fill="none" stroke="#eab308" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M 28 28 Q 50 42 72 28 Q 58 50 72 72 Q 50 58 28 72 Q 42 50 28 28 Z" fill="none" stroke="#16a34a" stroke-width="4" stroke-linejoin="round"/>
-        </svg>
-        <span>3. Опуклий / Увігнутий (Контур)</span>
-    </div>
+: init
+    = x1 config.iommu_base
+    = x2 0
 
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100">
-            <path d="M 50 5 Q 85 15 95 50 Q 85 85 50 95 Q 15 85 5 50 Q 15 15 50 5 Z" fill="#eab308"/>
-            <path d="M 28 28 Q 50 42 72 28 Q 58 50 72 72 Q 50 58 28 72 Q 42 50 28 28 Z" fill="#16a34a"/>
-        </svg>
-        <span>4. Опуклий / Увігнутий (Закрашений)</span>
-    </div>
---!>
+    ; Мультиплексор (select) очікування каналів
+    ? <
+        interrupt.dma_done  . handle_dma_irq
+        * driver.dma.alloc  . handle_am_request
+
+: handle_am_request
+    ; Відповідь на запит
+    > ^ x1 x2 200
+    . init</textarea>
+        </div>
+    </main>
+
+    <script>
+        // Логіка перемикання теми
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            const root = document.documentElement;
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeBtn.innerText = isDark ? 'Theme: Light' : 'Theme: Dark';
+        });
+    </script>
 </body>
 </html>
